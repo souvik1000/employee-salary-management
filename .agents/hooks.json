@@ -1,0 +1,32 @@
+{
+  "safety-guard": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pre-tool-safety.ps1",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  },
+  "code-formatter": {
+    "enabled": true,
+    "PostToolUse": [
+      {
+        "matcher": "write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/post-tool-lint.ps1",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
